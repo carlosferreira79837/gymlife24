@@ -1,0 +1,302 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color:#ff7f50;
+}
+
+h1 {
+    color: #070002;
+    text-align: center;
+}
+
+form {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation Container */
+nav {
+    background-color: #ab5505; /* Grün */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0; /* Fixiert das Menü am oberen Rand */
+    z-index: 1000;
+}
+
+/* Navigation Liste */
+nav ul {
+    list-style: none; /* Entfernt Punkte */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Horizontale Anordnung */
+    justify-content: center; /* Zentriert das Menü */
+}
+
+/* Navigation Listenelemente */
+nav ul li {
+    margin: 0 15px; /* Abstand zwischen den Links */
+}
+
+/* Navigation Links */
+nav ul li a {
+    text-decoration: none; /* Entfernt Unterstriche */
+    color: rgb(250, 247, 247);
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: inline-block; /* Ermöglicht Padding */
+    border-radius: 5px; /* Runde Ecken */
+    transition: background-color 0.3s ease; /* Weicher Hover-Effekt */
+}
+
+/* Hover-Effekt */
+nav ul li a:hover {
+    background-color: #0d0e0d; /* Dunkleres Grün */
+}
+
+/* Aktiver Link */
+nav ul li a.active {
+    background-color: #0f0f0f; /* Heller Grün */
+}
+
+/* 3 horizontale Übungen */
+.exercise-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Spalten für größere Bildschirme */
+    gap: 20px;
+    overflow: hidden; /* Verhindert, dass Bilder über den Rand hinausgehen */
+}
+
+.exercise-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden; /* Sicherstellen, dass alles innerhalb des Containers bleibt */
+}
+
+.exercise-item img {
+    width: 100%;         /* Das Bild nimmt 100% der Breite des Containers ein */
+    height: 90%;        /* Höhe fixieren, damit es den Container vollständig ausfüllt */
+    object-fit: cover;   /* Stellt sicher, dass das Bild das Containerverhältnis abdeckt, ohne das Bild zu verzerren */
+    transition: width 0.3s ease;  /* Übergang für die Breite */
+}
+
+.exercise-item img.small {
+    width: 50%;          /* Das Bild nimmt 50% der Breite des Containers ein */
+    height: 50%;         /* Höhe fixieren */
+    object-fit: cover;
+}
+
+/* Media Query für kleinere Bildschirme */
+@media (max-width: 768px) {
+    .exercise-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 Spalten für mittlere Bildschirme */
+    }
+
+    .exercise-item img {
+        max-width: 100%;  /* GIF passt sich der Containerbreite auf Mobilgeräten an */
+        max-height: 100%; /* Verhindert das Überlaufen nach unten */
+    }
+
+    /* Wenn die Beschreibung geöffnet ist, bleibt das GIF auf 50% */
+    .exercise-item img.small {
+        width: 50%;
+        height: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .exercise-container {
+        grid-template-columns: 1fr; /* 1 Spalte für sehr kleine Bildschirme */
+    }
+
+    .exercise-item img {
+        width: 100%; /* Stellt sicher, dass das Bild auf kleinen Geräten nicht aus dem Container herausgeht */
+        height: auto; /* Erhält das Seitenverhältnis bei kleinen Geräten */
+    }
+}
+
+.desc{
+    margin-top: 10px;
+    font-size: 1.0em;
+    line-height: 1.5;
+    background-color: #f9f2f2;
+    padding: 10px;
+    border: 1px solid #0b0b0b;
+    border-radius: 4px;
+}
+
+/* Das Formular direkt ohne zusätzliche Stile */
+.logout-form {
+    display: inline;  /* Inline, damit es sich nebeneinander anordnet */
+    margin: 0;  /* Kein zusätzlicher Abstand */
+    padding: 0;  /* Kein zusätzlicher Abstand */
+    border: none;  /* Kein Rahmen */
+    background: none;  /* Kein Hintergrund */
+}
+
+/* Der Button nach rechts verschieben */
+.logout-link {
+    border: none;  /* Kein Rand */
+    background: none;  /* Kein Hintergrund */
+    padding: 8px 16px;  /* Etwas Abstand um den Text */
+    color: #0d0f0d;  /* Textfarbe */
+    text-decoration: none;  /* Kein Unterstrich */
+    cursor: pointer;  /* Zeigt den Mauszeiger an */
+    font-size: 16px;  /* Schriftgröße */
+    font-family: inherit; /* Schriftart bleibt gleich wie der Rest der Seite */
+    display: inline-block;  /* Stellt sicher, dass der Button sich inline verhält */
+    margin: 0;  /* Verhindert zusätzliche Abstände um den Button */
+}
+
+/* Hover-Effekt für den Button */
+.logout-link:hover {
+    color: #0056b3;  /* Dunkleres Blau bei Hover */
+    text-decoration: none;  /* Keine Unterstreichung */
+}
+
+/* Optional: Abstand für das UL */
+ul {
+    margin-bottom: 20px;
+}
+
+.toggle-description-btn {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-exercise-btn {
+    margin: 10px;
+}
+/* Optional: Stil für den Hover-Effekt */
+.save-exercise-btn:hover {
+    color: gold; /* Farbe ändert sich beim Hover */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+}
+.hero {
+    background: linear-gradient(135deg, #ff7f50, #ff6347);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.hero-title {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.hero-subtitle {
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+.hero-description {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+.form-group {
+    margin-bottom: 20px; /* Größerer Abstand zwischen den Feldern */
+}
+
+.form-group label {
+    font-size: 1.1em;
+    margin-bottom: 8px; /* Etwas mehr Abstand zum Input */
+    display: block;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #f50b0b;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #ff6347;
+    outline: none;
+}
+
+.submit-btn {
+    background-color: #ff6347;
+    color: white;
+    font-size: 1.1em;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+    margin-top: 30px; /* Mehr Abstand zum Button */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit-btn:hover {
+    background-color: #ff4500;
+}
+/*
+.calculator-form {
+    background-color: #fff; 
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-left:  515px;;
+}
+*/
+.calculator-form {
+    max-width: 400px;  /* Maximale Breite des Formulars */
+    margin: 50px auto; /* Abstand von oben und zentrieren */
+    padding: 20px;
+    background-color: #fff; /* Hintergrundfarbe */
+    border-radius: 8px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Schatten für das Formular */
+}
+@media screen and (max-width: 600px) {
+    body, html {
+        padding: 10px;  /* Etwas kleinerer Abstand bei mobilen Geräten */
+    }
+
+    .calculator-form {
+        margin: 20px auto;  /* Kleineren Abstand bei mobilen Geräten */
+        padding: 15px;
+        max-width: 100%; /* Verhindert, dass das Formular auf kleineren Bildschirmen zu groß wird */
+    }
+
+    .submit-btn {
+        font-size: 14px;  /* Kleinere Schriftgröße auf Handys */
+    }
+}
+@media screen and (max-width: 768px) {
+    /* Navigation auf mobilen Geräten */
+    nav ul {
+        flex-direction: row; /* Stellt sicher, dass die Links in einer horizontalen Linie bleiben */
+        overflow-x: auto; /* Ermöglicht horizontalen Scroll */
+        white-space: nowrap; /* Verhindert, dass die Links umbrechen */
+    }
+
+    /* Die Links können nun horizontal gescrollt werden, ohne dass sie über den Bildschirm hinausragen */
+    nav ul li {
+        flex-shrink: 0; /* Verhindert, dass die Links schrumpfen */
+    }
+}

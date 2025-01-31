@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Exercises{% endblock %}
+
+{% block content %}
+<h2> Übung vorschlagen </h2>
+        <form method="POST" action="{% url 'suggest_exercise' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exercise_name">Name der Übung:</label>
+                <input type="text" id="exercise_name" name="exercise_name" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="description">Beschreibung:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+        
+            <div class="form-group">
+                <button type="submit">Vorschlag senden</button>
+            </div>
+        </form>
+{% endblock %}

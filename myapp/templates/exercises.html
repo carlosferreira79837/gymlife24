@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Exercises{% endblock %}
+
+{% block content %}
+    <h1>Exercises</h1>
+    <p class="hero-description">Fehlt eine Übung? Schlage hier gerne eine vor:</p>
+    <a href="suggest" class="btn">Suggest</a>
+    <form method="get" action="">
+        <label for="muscle_group">Wähle eine Muskelgruppe:</label>
+        <select name="muscle_group" id="muscle_group">
+            <option value="">Alle Muskelgruppen</option>
+            <option value="favorites" {% if request.GET.muscle_group == 'favorites' %}selected{% endif %}>Favoriten</option>
+            {% for group in muscle_groups %}
+                <option value="{{ group.id }}" {% if request.GET.muscle_group == group.id|stringformat:"s" %}selected{% endif %}>{{ group.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtern</button>
+    </form>
+    <div class="exercise-container">
+        {% for exercise in exercises %}
+            <div class="exercise-item">
+                <strong>{{ exercise.name }}</strong> - {{ exercise.muscle_group.name }}
+                
+                <button class="save-exercise-btn" data-exercise-id="{{ exercise.id }}"
+                        style="background: none; border: none; cursor: pointer; font-size: 1.5rem;">
+                        <span class="star" 
+                        style="color: {% if exercise.id in saved_exercises %}gold{% else %}#ccc{% endif %};">
+                      {% if exercise.id in saved_exercises %}
+                          &#9733; <!-- Gefüllter Stern -->
+                      {% else %}
+                          &#9734; <!-- Leerer Stern -->
+                      {% endif %}
+                  </span>
+                </button>
+                <!--hier kommt stern-->
+                <button class="toggle-description-btn">Show description</button>
+
+                <!-- Die Beschreibung (standardmäßig ausgeblendet) -->
+                <div class="desc" style="display:none;">
+                    <p>{{ exercise.description }}</p>
+                </div>
+    
+                {% if exercise.gif %}
+                    <img src="{{ exercise.gif.url }}" alt="{{ exercise.name }} GIF">
+                {% else %}
+                    <p>No gif</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Keine Übungen gefunden.</p>
+        {% endfor %}
+    </div>
+    
+    <script>
+
+        // Hole alle Toggle-Buttons und Description-Divs
+        const toggleButtons = document.querySelectorAll('.toggle-description-btn');
+        
+        // Füge jedem Button ein Click-Event hinzu
+        toggleButtons.forEach(function(button) {
+          button.addEventListener('click', function() {
+            // Finde das zugehörige Description-Div
+            const descriptionDiv = button.nextElementSibling;
+            const gifImage = button.closest('.exercise-item').querySelector('img');
+            
+            // Überprüfe, ob das Description-Div gerade angezeigt wird
+            if (descriptionDiv.style.display === 'none') {
+              descriptionDiv.style.display = 'block';
+              button.textContent = 'Hide description';  // Buttontext ändern
+              gifImage.classList.add('small');
+            } else {
+              descriptionDiv.style.display = 'none';
+              button.textContent = 'show description';  // Buttontext ändern
+              gifImage.classList.remove('small');
+            }
+          });
+        });
+        // star button 
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.save-exercise-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();  // Verhindert das Standardverhalten des Buttons
+        
+                    const exerciseId = button.dataset.exerciseId;
+        
+                    // Hole den CSRF-Token sicher
+                    //const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    //console.log("CSRF-Token:", csrfToken);
+        
+                    fetch(`/save-exercise/${exerciseId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken // CSRF-Token als Header
+                        },
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            // Hier wird der Fehler abgefangen, wenn der Benutzer nicht authentifiziert ist
+                            throw new Error('Not authenticated');
+                        }
+                    })
+                    
+                    .then(data => {
+                        const star = button.querySelector('.star');
+                        if (data.saved) {
+                            star.innerHTML = '&#9733;';  // Gefüllter Stern
+                            star.style.color = 'gold';
+                       } else {
+                            star.innerHTML = '&#9734;';  // Leerer Stern
+                            star.style.color = '#ccc'; 
+                        }
+                    })
+
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Benachrichtigung per alert
+                        alert('Du musst eingeloggt sein, um diese Aktion auszuführen!');
+                    });
+                });
+            });
+        });
+      </script>
+{% endblock %}

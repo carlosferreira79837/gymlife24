@@ -1,0 +1,23 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}GymLife24{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token  }}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <!-- Navigationsmenü einfügen -->
+    {% include 'nav.html' %}
+
+    <!-- Seiteninhalt -->
+    <main>
+        {% block content %}
+        <!-- Standardinhalt -->
+        {% endblock %}
+    </main>
+</body>
+</html>

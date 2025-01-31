@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1> Your exersices </h1>
+
+<ul>
+    {% for saved in saved_exercises %}
+    <li>
+    <strong>{{ saved.exercise.name }}</strong> - {{ saved.exercise.muscle_group.name }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- templates/nav.html -->
+<nav>
+    <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'calorie_calculator' %}">Calorie Calculator</a></li>
+        <li><a href="{% url 'exercises' %}">Exercises</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profil'%}">Profil<a/></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
